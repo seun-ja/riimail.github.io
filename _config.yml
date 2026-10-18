@@ -1,0 +1,17 @@
+title: The RiiMail Book
+description: Learn how to install, use, understand, and contribute to RiiMail.
+url: https://seun-ja.github.io
+baseurl: /riimail.github.io
+repository: seun-ja/riimail.github.io
+markdown: kramdown
+permalink: pretty
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: book
+
+exclude:
+  - README.md
+

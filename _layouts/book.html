@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-baseurl="{{ site.baseurl }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f8fa">
+    <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description | escape }}">
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/book.css' | relative_url }}">
+    <script>document.documentElement.dataset.theme = localStorage.getItem('riimail-theme') || 'light';</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#book-content">Skip to content</a>
+    <header class="topbar">
+      <button class="icon-button menu-button" type="button" aria-label="Open chapters" aria-controls="book-sidebar" aria-expanded="false"><span></span><span></span><span></span></button>
+      <a class="brand" href="{{ '/' | relative_url }}" aria-label="The RiiMail Book home">The RiiMail Book</a>
+      <div class="topbar-actions">
+        <button class="search-trigger" type="button" aria-haspopup="dialog">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+          <span>Search the book</span><kbd>⌘ K</kbd>
+        </button>
+        <button class="icon-button theme-toggle" type="button" aria-label="Switch color theme">
+          <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+          <svg class="moon-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+        </button>
+        <a class="icon-button github-link" href="https://github.com/seun-ja/rii-mail" aria-label="RiiMail on GitHub">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.9c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 0 1.6 1 1.6 1 .9 1.6 2.4 1.1 2.9.9.1-.7.4-1.1.7-1.3-2.2-.3-4.6-1.1-4.6-5A3.9 3.9 0 0 1 6.7 8c-.1-.3-.4-1.3.1-2.7 0 0 .9-.3 2.8 1a9.7 9.7 0 0 1 5.1 0c2-1.3 2.8-1 2.8-1 .6 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1.1 3c0 3.9-2.4 4.7-4.6 5 .4.3.7 1 .7 2V21c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"></path></svg>
+        </a>
+      </div>
+    </header>
+
+    <div class="page-shell">
+      <aside class="sidebar" id="book-sidebar"><div class="sidebar-inner">
+        <div class="sidebar-heading"><span>Chapters</span><button class="sidebar-close" type="button" aria-label="Close chapters">×</button></div>
+        {% include sidebar.html %}
+        <div class="sidebar-footer"><span class="status-dot" aria-hidden="true"></span>Open source · MIT</div>
+      </div></aside>
+      <button class="sidebar-scrim" type="button" aria-label="Close chapters"></button>
+
+      <main class="content-wrap" id="book-content">
+        <article class="book-content">
+          <p class="eyebrow">{{ page.section | default: "The RiiMail Book" }}</p>
+          {{ content }}
+          {% if page.prev_url or page.next_url %}
+          <nav class="page-pagination" aria-label="Chapter navigation">
+            {% if page.prev_url %}<a class="page-link previous" href="{{ page.prev_url | relative_url }}"><span>Previous</span><strong>← {{ page.prev_title }}</strong></a>{% else %}<span></span>{% endif %}
+            {% if page.next_url %}<a class="page-link next" href="{{ page.next_url | relative_url }}"><span>Next</span><strong>{{ page.next_title }} →</strong></a>{% endif %}
+          </nav>
+          {% endif %}
+        </article>
+        <footer class="site-footer"><span>Built for people who want a quieter, safer inbox.</span><a href="https://github.com/seun-ja/rii-mail/issues">Found a problem?</a></footer>
+      </main>
+
+    </div>
+
+    <dialog class="search-dialog" aria-labelledby="search-title">
+      <div class="search-box">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        <label class="sr-only" for="book-search" id="search-title">Search the RiiMail Book</label>
+        <input id="book-search" type="search" placeholder="Search chapters…" autocomplete="off"><kbd>esc</kbd>
+      </div>
+      <div class="search-results" id="search-results" aria-live="polite"><p class="search-hint">Try “privacy”, “Gmail”, “model”, or “testing”.</p></div>
+    </dialog>
+    <script src="{{ '/assets/js/book.js' | relative_url }}"></script>
+  </body>
+</html>
